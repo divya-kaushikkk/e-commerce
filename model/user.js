@@ -51,5 +51,5 @@ export const Users = sequelize.define("User", {
   {
     timestamps:true,
 });
-sequelize.sync({ alter: true })
+// sequelize.sync({ alter: true })
 
