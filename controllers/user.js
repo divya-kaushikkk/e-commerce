@@ -34,7 +34,7 @@ export const signup = async (req, res) => {
         }        
         const hashedPass = await bcrypt.hash(validateData.password, 10);
         validateData.password = hashedPass;
-        console.log(hashedPass); // have to comment out this shit.
+        // console.log(hashedPass); // have to comment out this shit.
         await Users.create(validateData);
         return res.status(200).json({success: true, message: "User added successfully."});
     }
@@ -119,7 +119,7 @@ export const forgotPass = async (req, res) => {
             return res.status(400).json({success: false, message: "Email not found."});
         }
         const resetToken = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "15min"});
-        console.log(resetToken);
+        // console.log(resetToken); // have to comment out ts.
         return res.status(200).json({success: true, message: "Password reset token generated.", resetToken: resetToken});
     }
     catch(error){
