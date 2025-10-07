@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
-import { success } from "zod";
 
 export const generateToken = async (user) => {
     try{ 
         const payload = {id: user.id, email: user.email}
-        return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "7min"});
+        return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1h"});
     }
     catch(error){
         console.log(error);

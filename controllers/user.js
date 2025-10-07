@@ -1,18 +1,12 @@
-import { Op, where} from "sequelize";
-import express from "express";
+import { Op} from "sequelize";
 import { Users } from "../model/user.js";
 import { userSchema } from "../validations/zod.js";
 import bcrypt from "bcrypt";
 import { transporter } from "../config/nodemailer.js";
 import { welcomeEmailTemplate } from "../validations/nodemailer.js";
 import { generateToken } from "../middleware/jwtAuth.js";
-import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
-dotenv.config();
-const app = express();
-app.use(cookieParser());
 export const signup = async (req, res) => {
     try{
         const result = userSchema.safeParse(req.body);
@@ -55,7 +49,7 @@ export const login = async (req, res) => {
 
         const user = await Users.findOne({where: {email}});
         if(!user){
-            return res.status(400).json({success: false, message: "Email not found."});
+            return res.status(400).json({success: false, message: "Invalid credentials."});
         }
 
         const checkPass = await bcrypt.compare(password, user.password);
@@ -76,11 +70,9 @@ export const login = async (req, res) => {
         httpOnly: true,
         sameSite: "strict",
         maxAge: 7 * 60 * 1000 
-});
+        });
 
-        return res.status(200).json({success: true, token: token, message: "User logged in successfully."});
-        
-        
+        return res.status(200).json({success: true, message: "User logged in successfully."});
     }
     
     catch(error){
@@ -91,20 +83,14 @@ export const login = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-  try{
     res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "strict"
+    sameSite: "strict",
+    maxAge: 24 * 60 * 60 * 1000
     });
 
     return res.status(200).json({success: true, message: "Logged out successfully." });
 
-  }
-
-  catch(error){
-    console.log(error);
-    return res.status(500).json({success: false, message: "Internal Server Error."});
-  }
 };
 
 export const forgotPass = async (req, res) => {
@@ -118,7 +104,7 @@ export const forgotPass = async (req, res) => {
         if(!user){
             return res.status(400).json({success: false, message: "Email not found."});
         }
-        const resetToken = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "15min"});
+        const resetToken = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "1h"});
         // console.log(resetToken); // have to comment out ts.
         return res.status(200).json({success: true, message: "Password reset token generated.", resetToken: resetToken});
     }
