@@ -106,7 +106,7 @@ export const forgotPass = async (req, res) => {
         }
         const resetToken = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "1h"});
         // console.log(resetToken); // have to comment out ts.
-        return res.status(200).json({success: true, message: "Password reset token generated.", resetToken: resetToken});
+        return res.status(200).json({success: true, message: "Password reset token generated."});
     }
     catch(error){
         console.log(error);
