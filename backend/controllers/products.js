@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import { success } from "zod";
+=======
+>>>>>>> 9b5cf8f (Initial commit)
 import { Product } from "../model/products.js";
 
 export const addProduct = async (req, res) => {

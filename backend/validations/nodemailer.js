@@ -40,6 +40,7 @@ export const welcomeEmailTemplate = (firstName, lastName) => `
 </html>
 `;
 
+<<<<<<< HEAD
 // export const welcomeEmailTemplate = (firstName, lastName) => `
 // <!DOCTYPE html>
 // <html lang="en">
@@ -104,3 +105,53 @@ export const welcomeEmailTemplate = (firstName, lastName) => `
 //   </table>
 // </body>
 // </html>`
+=======
+export const forgotPassEmail = (resetURL) => `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Reset Your Password</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 0; margin: 0;">
+  <div style="max-width: 500px; margin: 30px auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+
+    <h2 style="text-align: center; color: #4a4a4a; margin-bottom: 10px;">Reset Your Password</h2>
+    <p style="text-align: center; color: #777; font-size: 14px; margin-bottom: 25px;">
+      You requested to change your password for your account.
+    </p>
+
+    <p style="color: #444; font-size: 15px;">
+      Click the button below to reset your password. This link will be valid for the next <strong>1 hour</strong>.
+    </p>
+
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${resetURL}" 
+         style="background: #4F46E5; color: white; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-size: 15px; display: inline-block;">
+         Reset Password
+      </a>
+    </div>
+
+    <p style="font-size: 14px; color: #555;">
+      If the button above does not work, copy and paste this link into your browser:
+    </p>
+
+    <p style="font-size: 13px; color: #4F46E5; word-break: break-all; margin-bottom: 25px;">
+      ${resetURL}
+    </p>
+
+    <p style="font-size: 14px; color: #777;">
+      If you did not request this, you can ignore this email. Your password will remain unchanged.
+    </p>
+
+    <hr style="border: none; border-top: 1px solid #eee; margin: 25px 0;" />
+
+    <p style="text-align: center; font-size: 12px; color: #999;">
+      © 2025 E-Commerce. All rights reserved.
+    </p>
+
+  </div>
+</body>
+</html>
+`;
+
+>>>>>>> 9b5cf8f (Initial commit)
